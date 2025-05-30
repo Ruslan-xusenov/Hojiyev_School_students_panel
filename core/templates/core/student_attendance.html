@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Mening davomatim</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f0f2f5;
+      padding: 40px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .attendance-card {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+    h3 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    .filter-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-form input[type="date"] {
+      flex: 1;
+    }
+    .back-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="attendance-card">
+    <h3>📅 Mening davomatim</h3>
+
+    <!-- Filter form -->
+    <form method="get" class="filter-form">
+      <input type="date" name="date" class="form-control" value="{{ request.GET.date }}">
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- Attendance table -->
+    <table class="table table-bordered table-striped align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Sana</th>
+          <th>Holat</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in attendances %}
+          <tr>
+            <td>{{ item.date }}</td>
+            <td>
+              {% if item.status %}
+                ✅ Kelgan
+              {% else %}
+                ❌ Kelmagan
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="2">📭 Davomat mavjud emas</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Orqaga tugmasi -->
+    <div class="back-button">
+      <a href="{% url 'dashboard' %}" class="btn btn-secondary">
+        ◀ Orqaga
+      </a>
+    </div>
+  </div>
+</body>
+</html>

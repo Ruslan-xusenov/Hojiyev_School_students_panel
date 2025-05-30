@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Imtihon natijasi kiritish</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .exam-form {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 500px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    .btn-primary {
+      background-color: #0072ff;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #005edc;
+    }
+    .form-label {
+      font-weight: 500;
+    }
+    .back-button {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="exam-form">
+    <h2>Imtihon natijasi kiritish</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger small">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Saqlash</button>
+      </div>
+    </form>
+
+    <!-- Orqaga qaytish tugmasi -->
+    <div class="back-button">
+      <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">◀ Orqaga</a>
+    </div>
+  </div>
+</body>
+</html>
